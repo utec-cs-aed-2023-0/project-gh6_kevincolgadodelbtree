@@ -23,7 +23,7 @@ class Blockchain
 
 public:
     Blockchain(){
-        difficulty = 3;
+        difficulty = 4;
         nregs = 0;
     
         Block temp;

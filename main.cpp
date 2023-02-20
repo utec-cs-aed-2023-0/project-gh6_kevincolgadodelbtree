@@ -12,12 +12,48 @@ void test(){ // Test que hizo JD, lo dejo xsiaca
 
 void test1(){ // Test que hizo Martin
     Blockchain chain;
-    for(int i = 0; i < 131; i++){
+    int blocks;
+    std::cout << "How many blocks: \n";
+    std::cin >> blocks;
+    for(int i = 0; i < (blocks*10)+1; i++){
         chain.doTransaction(Transaction{(uint64_t)i,0,0,0});
+    }
+}
+
+Transaction createTransaction(uint64_t user){
+    uint64_t acc, time, qty;
+    std::cout << "\nBeneficiary accound number: ";
+    std::cin >> acc;
+    std::cout << "\nEnter amount to send: ";
+    std::cin >> qty;
+    return Transaction{acc, user, 0, qty};
+}
+
+void manualTest(){
+    uint64_t user;
+    std::cout << "Enter your bank account: ";
+    std::cin >> user;
+
+    Blockchain chain;
+
+    while(true){
+        chain.doTransaction(createTransaction(user));
+        std::cout << "Transaction done successfully" << std::endl;
     }
 }
 
 int main(void)
 {
-    test1();   
+    std::string option;
+    while(option != "manual" || option != "auto"){
+        std::cout << "\nEnter: \"manual\" or \"auto\"\n";
+        std::cin >> option;
+        if(option == "manual"){
+            manualTest();
+            break;
+        } else if(option == "auto"){
+            test1();
+            break;
+        }
+    }
 }

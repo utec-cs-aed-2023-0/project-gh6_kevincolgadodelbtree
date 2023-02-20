@@ -26,8 +26,7 @@ std::string to_string(const Transaction& tojsonify)
     os << "{";
     os << "\"recipient\":\"0x" << tojsonify.recipient <<"\",";
     os << "\"sender\":\"0x" << tojsonify.sender <<"\",";
-    os << "\"time\":\"0x" << std::chrono::duration_cast<std::chrono::seconds>(
-                   p1.time_since_epoch()).count() <<"\",";
+    os << "\"time\":\"0x" << std::chrono::duration_cast<std::chrono::seconds>(p1.time_since_epoch()).count() <<"\",";
     os << "\"ammount\":\"0x" << tojsonify.qty << "\"";
     os << "}";
 
