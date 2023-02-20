@@ -4,38 +4,45 @@
 
 Implementation done in C++ as our final project for: Algorithms and Data Structures course.  
 
+We used some Bitcoin design principles including SHA256 to hash block information and headers, and mining.
+
+**Requirements**
+- Uses C++(idk what version), Hash++ library
+ 
+And unfortunately, everything is stored in memory and is deleted when program quits. We are not using dynamic allocation.
+
 ## BlockChain Object
 Genesis block is created during initialization.  
 The blockchain variables are:
 ```cpp
-- int difficulty; // Amount of 0's for the proof-of-work.
-- int nregs; // Block's ID.
-- uuid_64 lastblock; // Last Block ID.
-- Block UncommitedBlock; // Current in-develop Block.
-- int transactNo; // Amount of transactions on the current Block.
+int difficulty; // Amount of 0's for the proof-of-work.
+int nregs; // Block's ID.
+uuid_64 lastblock; // Last Block ID.
+Block UncommitedBlock; // Current in-develop Block.
+int transactNo; // Amount of transactions on the current Block.
 ```
 
 ### Block Object
 ```cpp
-- uuid_64 id; // Self-explantory
-- int salt = 0; // Nonce
-- uint512_t prev; // Previous block ID
-- Transaction transactions[BLOCK_SIZE]; // Array with transactions.
+uuid_64 id; // Self-explantory
+int salt = 0; // Nonce
+uint512_t prev; // Previous block ID
+Transaction transactions[BLOCK_SIZE]; // Array with transactions.
 ```
 
 #### Transaction Object
 ```cpp
-- uuid_64 recipient; // Self-explantory
-- uuid_64 sender; // Self-explantory
-- int64_t momentoftransact; // Unix-Epoch of transaction.
-- int64_t qty; // Money sent (Cents, Dolars, Crypto-Coins, etc).
+uuid_64 recipient; // Self-explantory
+uuid_64 sender; // Self-explantory
+int64_t momentoftransact; // Unix-Epoch of transaction.
+int64_t qty; // Money sent (Cents, Dolars, Crypto-Coins, etc).
 ```
 
 Everytime a block is added to the blockchain it will check that the given hash is valid (With a difficulty of 5, the hash must start with 0x00000...).
 
 ### This repository uses hashing functions from https://github.com/D7EAD/HashPlusPlus.
 
-## Contribuyentes
+## Authors
 
 | Martin P. | Johar B.  |  Juan Diego P. | Marcelo Z. | Oscar C. |
 |   :---:    |    :----:   |   :---:    |  :---:     |   :---:    |
