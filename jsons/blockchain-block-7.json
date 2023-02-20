@@ -1,0 +1,13 @@
+{"id":7,
+"prev":"0x00000297cec43e08c83c811a671df110affd8a0516a286e78ce71ad78d71ca5664400299b33f1ee7a03d3d15014e83758fd9b68a1b45a50fa1e940680c697605",
+"transactions":[{"recipient":"0x70","sender":"0x0","time":"0x0","ammount":"0x0"},
+{"recipient":"0x71","sender":"0x0","time":"0x0","ammount":"0x0"},
+{"recipient":"0x72","sender":"0x0","time":"0x0","ammount":"0x0"},
+{"recipient":"0x73","sender":"0x0","time":"0x0","ammount":"0x0"},
+{"recipient":"0x74","sender":"0x0","time":"0x0","ammount":"0x0"},
+{"recipient":"0x75","sender":"0x0","time":"0x0","ammount":"0x0"},
+{"recipient":"0x76","sender":"0x0","time":"0x0","ammount":"0x0"},
+{"recipient":"0x77","sender":"0x0","time":"0x0","ammount":"0x0"},
+{"recipient":"0x78","sender":"0x0","time":"0x0","ammount":"0x0"},
+{"recipient":"0x79","sender":"0x0","time":"0x0","ammount":"0x0"}],
+"salt":"258"}
