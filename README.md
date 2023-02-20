@@ -40,7 +40,7 @@ int64_t qty; // Money sent (Cents, Dolars, Crypto-Coins, etc).
 
 Everytime a block is added to the blockchain it will check that the given hash is valid (With a difficulty of 5, the hash must start with 0x00000...).
 
-### This repository uses hashing functions from https://github.com/D7EAD/HashPlusPlus.
+#### This repository uses hashing functions from https://github.com/D7EAD/HashPlusPlus.
 
 ## Authors
 
