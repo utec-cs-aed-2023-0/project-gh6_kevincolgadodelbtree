@@ -64,7 +64,18 @@ std::string to_string(const Block& tojsonify)
     os << "\"salt\":\"" << tojsonify.salt << "\"}";
 
     return os.str();
-}  
+}
+
+void printPrettyJson(const Block& topretty){
+    std::cout<<" ___________________________  ";
+    std::cout<<"|  Block : [ # | "<< topretty.id << "          ]";
+    std::cout<<"|  Nonce : [ "<<topretty.salt <<"        ]";
+    std::cout<<"|          ,________________|";
+    std::cout<<"|  Data  : |"<<to_string(topretty)<<"       |";
+    std::cout<<"|          |________________|";
+    std::cout<<"|  Prev  : [ "<<to_string(topretty.prev)<<" ]\n";
+    std::cout<<" ---------------------------- ";
+}
 
 // No toquen esta vaina, gracias.
 uint512_t hashBlock(const Block& to_hash)
@@ -106,6 +117,11 @@ void saveJSON(const Block& tojsonify){
     s << tojsonify.id;                                              // Get file name
     std::ofstream o("jsons/blockchain-block-" + s.str() + ".json"); // o is the output file
     o << std::setw(4) << os.str() << std::endl;                     // Write with indent
+    if (o.fail())
+    {
+        // error in the file saving
+        throw std::runtime_error("Error while pushing a Block");
+    }
     o.close();
 }
 
