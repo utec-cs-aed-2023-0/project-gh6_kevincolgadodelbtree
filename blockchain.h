@@ -1,6 +1,8 @@
 #include <string>
 #include <fstream>
 #include "block.h"
+#include "JSON/single_include/nlohmann/json.hpp"
+using json = nlohmann::json;
 
 #define BLOCKCHAIN_FILE_PREFIX std::string("o")
 
@@ -34,13 +36,21 @@ public:
         transactNo = 0;
     }
 
+    void printPrettyjson(std::string mdata){
+        std::ifstream i("../"+mdata);
+        json data = json::parse(i);
+        std::cout<<data.dump(4);
+    }
+
     Blockchain(std::string mdata)
     {
         // read metadata file and populate the appropiate things
-        std::ifstream mdatafile(mdata);
-        mdatafile >> difficulty;
-        mdatafile >> nregs;
-        mdatafile >> lastblock;
+        std::ifstream i("../"+mdata);
+        json data = json::parse(i);
+
+        difficulty = data["difficulty"];
+        nregs = data["nregs"];
+        lastblock = data["lastblock"];
         transactNo = 0;
         
         // initialize the uncommited block
