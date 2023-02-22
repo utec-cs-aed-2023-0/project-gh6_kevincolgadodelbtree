@@ -1,8 +1,11 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10088296&assignment_repo_type=AssignmentRepo)
 
+
 # Blockchain - Project
 
 Implementation done in C++ as our final project for: Algorithms and Data Structures course.  
+
+![Blockchain](https://cryptoconexion.com/wp-content/uploads/2021/10/blockchainseguro-1024x607.jpg)
 
 We used some Bitcoin design principles including SHA256 to hash block information and headers, and mining.
 
@@ -14,8 +17,11 @@ And unfortunately, everything is stored in memory and is deleted when program qu
 ## JSON Library from nlohmann (JSON for Modern C++)
 
 In our Project we use a modern json library that helps us to write, read, merge, convert and a lot of other functions. 
+
 Library from: 
+
 -> https://github.com/nlohmann/json#design-goals 
+
 -> https://json.nlohmann.me/
 
 About this library: 
