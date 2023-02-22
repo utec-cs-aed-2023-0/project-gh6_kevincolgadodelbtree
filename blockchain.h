@@ -51,27 +51,50 @@ public:
     {
         if (transactNo == BLOCK_SIZE) // if block contains the max number of transaccions 
         {                           // which means that the block is full...
-            std::cout << "\nPUSHING BLOCK with id " << UncommitedBlock.id << ": \n";
+            std::cout << "\n [INFO] Commiting Block... " << UncommitedBlock.id << ": \n";
+            std::cout << " [INFO] Mining..." << std::endl;
+
             PoWGenerateHash(); // generate NONCE
-            push_Block(UncommitedBlock); // push the block 
+            push_Block(UncommitedBlock); // push the block
+            std::cout << " [INFO] Block Mined Succesfully. Cleaning Up." << std::endl;
+
             UncommitedBlock.prev = hashBlock(UncommitedBlock);
             UncommitedBlock.salt = 0;
-
             lastblock = UncommitedBlock.id;
             nregs++; // increase id
             UncommitedBlock.id = nregs;
             transactNo = 0; // now we need a new block and transactions are now 0 again
+            std::cout << " [INFO] Updating metadata..." << std::endl;
+
+            // after updating the block, update the metadata
+            push_metadata();
+            std::cout << " [INFO] Cleanup finished." << std::endl;
+
         }
         UncommitedBlock.transactions[transactNo] = trs; // else push the transaction
         transactNo++;
+        std::cout << "Transaction added to Uncommited." <<std::endl;
     }
 
     Block getLastBlock()
     {
-
+        return Block();
     }
 
 private:
+
+    void push_metadata()
+    {
+        // jsonify and push the metadata of the blockchain
+        std::ofstream mdtafile("jsons/blockchain-metadata.json");
+        mdtafile << "{";
+        mdtafile << "\"difficulty\" :" << difficulty << ",";
+        mdtafile << "\"block_qty\" :" << nregs << ",";
+        mdtafile << "\"last_block\" : " << lastblock;
+        mdtafile << "}";
+        mdtafile.close();
+
+    }
 
     void push_Block(Block& block)
     {
