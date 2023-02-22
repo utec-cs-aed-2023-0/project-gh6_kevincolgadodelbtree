@@ -3,54 +3,120 @@
 
 using namespace std;
 
-class BPlusNode 
-{
-private:
+// Nodo interno del árbol B+
+class BPlusNode {
+public:
     vector<int> keys;  //Las claves en el nodo
     bool is_leaf;      //Retorna true si el nodo es una hoja, false si es un nodo interno
     BPlusNode* parent; //Puntero que va al nodo padre, no hay misterio
     vector<BPlusNode*> children; //Punteros que van a los hijos del nodo
 
+    //Constructor
+    BPlusNode(bool is_leaf) {
+        this->is_leaf = is_leaf;
+    }
+};
+
+class BPlusTree {
+private:
+    BPlusNode* root;
+    int degree; //los grados vaya q sorpresa
+
 public:
-bool search(BPlusNode* root, int value) {
-    //Si el nodo es una hoja, buscar el valor en sus claves
-    if (root->is_leaf) {
-        for (int key : root->keys) {
-            if (key == value) {
-                return true;
+    //Constructor
+    BPlusTree(int degree) {
+        this->root = NULL;
+        this->degree = degree;
+    }
+
+    //Destructor
+    ~BPlusTree() {
+        ultrasoloremix(root);
+    }
+
+    //Elimina todo el árbol recursivamente
+    //nombre provisional, es el destroyer del arbol xd
+    void ultrasoloremix(BPlusNode* node) {
+        if (node == NULL) return;
+        if (node->is_leaf) {
+            delete node;
+            return;
+        }
+        for (int i = 0; i < node->children.size(); i++) {
+            ultrasoloremix(node->children[i]);
+            //gracias jd por la idea
+        }
+        delete node;
+    }
+
+    //Búsqueda de una llave en el árbol
+    BPlusNode* search(int key) {
+        return search(root, key);
+    }
+
+    //Esto deberia ir en el private pero ya q xu
+    BPlusNode* search(BPlusNode* node, int key) {
+        if (node == NULL) return NULL;
+        int i = 0;
+        while (i < node->keys.size() && key > node->keys[i]) {
+            i++;
+        }
+        if (node->is_leaf) {
+            if (i < node->keys.size() && node->keys[i] == key) {
+                return node;
             }
+            return NULL;
+        } else {
+            return search(node->children[i], key);
         }
-        return false;
     }
-    //Si el nodo es un nodo interno, 
-    //busca el hijo correspondiente para continuar la búsqueda
-    else {
-        int i = 0;
-        while (i < root->keys.size() && root->keys[i] < value) {
-            i++;
-        }
-        return search(root->children[i], value);
-    }
-}
 
-void insert(BPlusNode* root, int value) {
-    //Si el nodo es una hoja, insertar el valor en orden
-    if (root->is_leaf) {
-        int i = 0;
-        while (i < root->keys.size() && root->keys[i] < value) {
-            i++;
+    //Insert de una llave en el árbol
+    void insert(int key) {
+        if (root == NULL) {
+            root = new BPlusNode(true);
+            root->keys.push_back(key);
+        } else {
+            if (root->keys.size() == degree * 2 - 1) {
+                BPlusNode* new_root = new BPlusNode(false);
+                new_root->children.push_back(root);
+                //OJO ACA VA:
+                //split_child(new_root, 0, root);
+                //Pero está comentado porq no tengo aun el split
+                root = new_root;
+            }
+            //Este insert se explica abajo
+            insert_no_full(root, key);
         }
-        root->keys.insert(root->keys.begin() + i, value);
     }
-    // Si el nodo es un nodo interno, buscar el hijo correspondiente para continuar la inserción
-    else {
-        int i = 0;
-        while (i < root->keys.size() && root->keys[i] < value) {
-            i++;
-        }
-        insert(root->children[i], value);
-    }
-}
 
+
+    void insert_no_full(BPlusNode* node, int key) {
+        int i = 0;
+        while (i < node->keys.size() && key > node->keys[i]) {
+            i++;
+        }
+        if (node->is_leaf) {
+            node->keys.insert(node->keys.begin() + i, key);
+        } else {
+            if (node->children[i]->keys.size() == degree * 2 - 1) {
+                //OJO ACA VA:
+                //split_child(node, i, node->children[i]);
+                //Pero está comentado porq no tengo aun el split
+                if (key > node->keys[i]) {
+                    i++;
+                }
+            }
+            insert_no_full(node->children[i], key);
+        }
+    }
+
+    /*
+    //División de un nodo hijo de forma recursiva? Aun no se xd
+    void split_child(BPlusNode* parent, int i, BPlusNode* child) {
+        BPlusNode* new_child = new BPlusNode
+
+    //Ayuden hijos de la maracaaaaaaa no tengo ideaaaaaaaaaa
+    */
 };
 
