@@ -18,11 +18,11 @@ And unfortunately, everything is stored in memory and is deleted when program qu
 
 In our Project we use a modern json library that helps us to write, read, merge, convert and a lot of other functions. 
 
-Library from: 
+All credits of this library to: 
 
--> https://github.com/nlohmann/json#design-goals 
+https://github.com/nlohmann/json#design-goals 
 
--> https://json.nlohmann.me/
+https://json.nlohmann.me/
 
 About this library: 
 
