@@ -9,20 +9,18 @@ using namespace std;
 
 int main() {
     // Crear un árbol B+ vacío
-    BPlusNode* root = new BPlusNode();
-    root->is_leaf = true;
-    root->parent = nullptr;
+    BPlusTree btree(5);
     
     // Insertar algunos valores en el árbol B+
-    insert(root, 10);
-    insert(root, 5);
-    insert(root, 20);
-    insert(root, 15);
+    btree.insert(10);
+    btree.insert(5);
+    btree.insert(20);
+    btree.insert(15);
     
     // Buscar algunos valores en el árbol B+
-    cout << search(root, 10) << endl; // Debe imprimir 1
-    cout << search(root, 7) << endl;  // Debe imprimir 0
-    cout << search(root, 15) << endl; // Debe imprimir 1
+    cout << btree.search(10) << endl; // Debe imprimir 1
+    cout << btree.search(7) << endl;  // Debe imprimir 0
+    cout << btree.search(15) << endl; // Debe imprimir 1
     
     return 0;
 }
