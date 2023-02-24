@@ -1,6 +1,7 @@
 #include "hashing/hashpp.h"
 #include <sstream>
 #include <iomanip>
+#include "JSON/single_include/nlohmann/json.hpp"
 
 #include "uint512.h"
 #include "transaction.h"
@@ -8,6 +9,7 @@
 #define DEPOSIT_FROM_NOTHING_ACCOUNT 0x0000000000000000
 #define BLOCK_SIZE 10
 #define HASH_CHAR_SIZE 64
+using json = nlohmann::json;
 
 typedef uint64_t uuid_64; 
 
@@ -66,15 +68,10 @@ std::string to_string(const Block& tojsonify)
     return os.str();
 }
 
-void printPrettyJson(const Block& topretty){
-    std::cout<<" ___________________________  ";
-    std::cout<<"|  Block : [ # | "<< topretty.id << "          ]";
-    std::cout<<"|  Nonce : [ "<<topretty.salt <<"        ]";
-    std::cout<<"|          ,________________|";
-    std::cout<<"|  Data  : |"<<to_string(topretty)<<"       |";
-    std::cout<<"|          |________________|";
-    std::cout<<"|  Prev  : [ "<<to_string(topretty.prev)<<" ]\n";
-    std::cout<<" ---------------------------- ";
+void printPrettyjson(std::string mdata){
+    std::ifstream i("../"+mdata);
+    json data = json::parse(i);
+    std::cout<<data.dump(4);
 }
 
 // No toquen esta vaina, gracias.
@@ -125,10 +122,19 @@ void saveJSON(const Block& tojsonify){
     o.close();
 }
 
-Block readFromFile()
+Block readFromFile(std::string mdata)
 {
-    // read the json formatted string and create an object with the appropiate data
-    return Block();
+    //Pueden hacerlo que retorne Block pointer si desean :)
+    std::ifstream i("../"+mdata);
+    json data = json::parse(i);
+
+    Block readFF;
+    readFF.id = data["id"];
+    readFF.prev = data["prev"];
+    readFF.salt = data["salt"];
+    //readFF->transactions = data["transactions"]; Falta implementar el overload del = para transactions
+
+    return readFF;
 }
 
 /*
