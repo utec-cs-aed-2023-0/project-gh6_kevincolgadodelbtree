@@ -15,6 +15,9 @@ public:
     BPlusNode(bool is_leaf) {
         this->is_leaf = is_leaf;
     }
+
+    BPlusNode() = default;
+
 };
 
 class BPlusTree {
