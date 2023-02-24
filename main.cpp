@@ -1,3 +1,8 @@
+// Compile Configuration
+#define DO_INFO_MESSAGES
+//#define DO_VERBOSE
+#define BLOCKCHAIN_FILE_PREFIX std::string("jsons/blockchain-")
+
 #include <iostream>
 #include "hashing/hashpp.h"
 #include "blockchain.h"
@@ -11,12 +16,17 @@ void test(){ // Test que hizo JD, lo dejo xsiaca
 }
 
 void test1(){ // Test que hizo Martin
-    Blockchain chain;
+    Blockchain chain("jsons/blockchain-metadata.json");
     int blocks;
     std::cout << "How many blocks: \n";
     std::cin >> blocks;
     for(int i = 0; i < (blocks*10)+1; i++){
         chain.doTransaction(Transaction{(uint64_t)i,0,0,0});
+    }
+
+    for (auto i = chain.cobegin(); i != chain.coend(); i++)
+    {
+        std::cout << to_string(*i) << std::endl;
     }
 }
 

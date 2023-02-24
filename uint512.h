@@ -160,8 +160,13 @@ int getValueFromHexDigit(char digit)
     }
 }
 
-uint512_t getui512fromstr(const std::string& num_string)
+uint512_t getui512fromstr(std::string num_string)
 {
+    if (num_string[1] = 'x') // 0x formatted hex value. discard
+    {
+        num_string = num_string.substr(2);
+    }
+    
     uint512_t to_ret;
     unsigned char byte;
     for (int i = 0; i<128;i+=2) // avanzar de 2 en 2, (byte en byte)

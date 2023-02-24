@@ -39,7 +39,7 @@ typedef uint64_t uuid_64;
 struct Block
 {
     uuid_64 id;     // BLOCK
-    int salt = 0;   // NONCE for proof of work: basicamente alterar esto para hacer que el hash 
+    uint32_t salt = 0;   // NONCE for proof of work: basicamente alterar esto para hacer que el hash 
                     // resultante cumpla con alguna caracteristica particular: ej: que el primer 
                     // digito sea 0.
     uint512_t prev; // PREV: sha512 of previous block
@@ -108,11 +108,11 @@ void saveJSON(const Block& tojsonify){
     }
     os <<"],\n";
     // Salt
-    os << "\"salt\":\"" << tojsonify.salt << "\"}";
+    os << "\"salt\":" << tojsonify.salt << "}";
 
     std::ostringstream s;
     s << tojsonify.id;                                              // Get file name
-    std::ofstream o("jsons/blockchain-block-" + s.str() + ".json"); // o is the output file
+    std::ofstream o(BLOCKCHAIN_FILE_PREFIX + "block-" + s.str() + ".json"); // o is the output file
     o << std::setw(4) << os.str() << std::endl;                     // Write with indent
     if (o.fail())
     {
@@ -122,17 +122,24 @@ void saveJSON(const Block& tojsonify){
     o.close();
 }
 
-Block readFromFile(std::string mdata)
+Block readBlockFromFile(std::string mdata)
 {
     //Pueden hacerlo que retorne Block pointer si desean :)
-    std::ifstream i("../"+mdata);
+    std::ifstream i(mdata);
     json data = json::parse(i);
 
     Block readFF;
     readFF.id = data["id"];
-    readFF.prev = data["prev"];
+    readFF.prev = getui512fromstr(data["prev"]);
     readFF.salt = data["salt"];
-    //readFF->transactions = data["transactions"]; Falta implementar el overload del = para transactions
+    for (int i = 0; i<data["transactions"].size();i++)
+    {
+        readFF.transactions[i].recipient = data["transactions"][i]["recipient"];
+        readFF.transactions[i].sender = data["transactions"][i]["sender"];
+        readFF.transactions[i].momentoftransact = data["transactions"][i]["time"];
+        readFF.transactions[i].qty = data["transactions"][i]["ammount"];
+    }
+    
 
     return readFF;
 }

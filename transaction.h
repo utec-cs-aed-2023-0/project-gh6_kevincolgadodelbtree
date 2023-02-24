@@ -2,7 +2,6 @@
 #include <string>
 #include <cstdint>
 #include <sstream>
-#include <chrono>
 
 typedef uint64_t uuid_64; 
 
@@ -21,13 +20,11 @@ std::string to_string(const Transaction& tojsonify)
     // should return a valid json representation of the object
     std::ostringstream os;
 
-    const auto p1 = std::chrono::system_clock::now();
-
     os << "{";
-    os << "\"recipient\":\"0x" << tojsonify.recipient <<"\",";
-    os << "\"sender\":\"0x" << tojsonify.sender <<"\",";
-    os << "\"time\":\"0x" << std::chrono::duration_cast<std::chrono::seconds>(p1.time_since_epoch()).count() <<"\",";
-    os << "\"ammount\":\"0x" << tojsonify.qty << "\"";
+    os << "\"recipient\":" << tojsonify.recipient <<",";
+    os << "\"sender\":" << tojsonify.sender <<",";
+    os << "\"time\":" << tojsonify.momentoftransact << ",";
+    os << "\"ammount\":" << tojsonify.qty << "";
     os << "}";
 
     return os.str();
