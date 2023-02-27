@@ -47,7 +47,7 @@ public:
         }
         for (int i = 0; i < node->children.size(); i++) {
             ultrasoloremix(node->children[i]);
-            //gracias jd por la idea
+            //gracias jd por la idea uwu
         }
         delete node;
     }
