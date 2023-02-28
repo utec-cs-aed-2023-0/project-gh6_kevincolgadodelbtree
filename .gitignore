@@ -1,0 +1,4 @@
+jsons/*.json
+.vs/*
+.vs/VSWorkspaceState.json
+.vs/ProjectSettings.json
