@@ -2,7 +2,9 @@
 #include <fstream>
 #include <chrono>
 #include "block.h"
+#include "linkedlist.h"
 #include "JSON/single_include/nlohmann/json.hpp"
+#include "index/hash/hash.h"
 using json = nlohmann::json;
 
 
@@ -23,10 +25,12 @@ class Blockchain
     Block UncommitedBlock;
     int transactNo;
 
+    // ----- Indices ------
+    HashMap<uuid_64> m_hash_sender;
+    HashMap<uuid_64> m_hash_recipient;
+
 public:
-
     // commit order iterator stuff
-
     class commitOrderIterator
     {
         uint64_t id;
@@ -239,5 +243,9 @@ private:
             std::cout << "[INFO - Verbose] Hash: " << h << std::endl; // if found, cout hash
         #endif
         return true;
+    }
+
+    LinkedList<Transaction> search(uuid_64 m_search){
+        
     }
 };

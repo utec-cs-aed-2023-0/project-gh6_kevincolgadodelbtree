@@ -8,11 +8,24 @@ const int MAX_CHILDREN = MAX_KEYS + 1;
 
 class BPlusTree {
 public:
-    
+    struct BPlusNode {
+        int num_keys;
+        bool is_leaf;   //Retorna true si el nodo es una hoja, false si es un nodo interno
+        vector<int> keys;   //Las claves en el nodo
+        BPlusNode* parent; //Puntero que va al nodo padre, no hay misterio
+        vector<BPlusNode*> children; //Punteros que van a los hijos del nodo
+
+        BPlusNode(bool _is_leaf) {
+            num_keys = 0;
+            is_leaf = _is_leaf;
+            keys.resize(MAX_KEYS);
+            children.resize(MAX_CHILDREN);
+        }
+    };
+public:
     //Constructor
     BPlusTree(int degree) {
         this->root = NULL;
-        this->degree = degree;
     }
 
     //Destructor
@@ -41,21 +54,6 @@ public:
     void print();
 
 private:
-    struct BPlusNode {
-        int num_keys;
-        bool is_leaf;   //Retorna true si el nodo es una hoja, false si es un nodo interno
-        vector<int> keys;   //Las claves en el nodo
-        BPlusNode* parent; //Puntero que va al nodo padre, no hay misterio
-        vector<BPlusNode*> children; //Punteros que van a los hijos del nodo
-
-        BPlusNode(bool _is_leaf) {
-            num_keys = 0;
-            is_leaf = _is_leaf;
-            keys.resize(MAX_KEYS);
-            children.resize(MAX_CHILDREN);
-        }
-    };
-
     BPlusNode* root;
     void split_child(BPlusNode* parent, int child_idx);
     void insert_non_full(BPlusNode* node, int key);
