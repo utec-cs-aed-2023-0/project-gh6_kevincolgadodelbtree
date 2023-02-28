@@ -90,6 +90,16 @@
         "string_view": "cpp",
         "unordered_map": "cpp",
         "variant": "cpp",
-        "__tree": "cpp"
+        "__tree": "cpp",
+        "any": "cpp",
+        "csignal": "cpp",
+        "numeric": "cpp",
+        "random": "cpp",
+        "ranges": "cpp",
+        "regex": "cpp",
+        "set": "cpp",
+        "span": "cpp",
+        "unordered_set": "cpp",
+        "valarray": "cpp"
     }
 }

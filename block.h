@@ -114,7 +114,7 @@ void saveJSON(const Block& tojsonify){
     s << tojsonify.id;                                              // Get file name
     std::ofstream o(BLOCKCHAIN_FILE_PREFIX + "block-" + s.str() + ".json"); // o is the output file
     o << std::setw(4) << os.str() << std::endl;                     // Write with indent
-    if (o.fail())
+    if (o.bad())
     {
         // error in the file saving
         throw std::runtime_error("Error while pushing a Block");
